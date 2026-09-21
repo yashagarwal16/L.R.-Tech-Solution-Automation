@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import dns from "node:dns";
 import { isConfigured } from "./env";
 
 type ContactNotification = {
@@ -28,10 +29,13 @@ export async function sendContactNotification(inquiry: ContactNotification) {
     return { sent: false, configured: false };
   }
 
+  const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
+  const smtpAddress = (await dns.promises.lookup(smtpHost, { family: 4 })).address;
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
+    host: smtpAddress,
     port: Number(process.env.SMTP_PORT || "465"),
     secure: process.env.SMTP_SECURE !== "false",
+    tls: { servername: smtpHost },
     auth: { user, pass: appPassword },
   });
 
