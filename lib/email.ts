@@ -33,7 +33,7 @@ export async function sendContactNotification(inquiry: ContactNotification) {
   const smtpAddress = (await dns.promises.lookup(smtpHost, { family: 4 })).address;
   const transporter = nodemailer.createTransport({
     host: smtpAddress,
-    port: Number(process.env.SMTP_PORT || "465"),
+    port: Number(process.env.SMTP_PORT || "587"),
     secure: process.env.SMTP_SECURE !== "false",
     tls: { servername: smtpHost },
     auth: { user, pass: appPassword },

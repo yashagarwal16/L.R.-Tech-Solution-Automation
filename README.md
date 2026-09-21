@@ -130,8 +130,8 @@ internal recipients through Gmail SMTP. Configure these server-only variables:
 
 ```env
 SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_SECURE=true
+SMTP_PORT=587
+SMTP_SECURE=false
 SMTP_USER=notifications@gmail.com
 SMTP_APP_PASSWORD=replace_with_google_app_password
 OWNER_NOTIFICATION_EMAIL=owner@gmail.com
@@ -624,8 +624,8 @@ Add these in Render's **Environment** page. Do not commit real values to Git.
 ```text
 MONGODB_URI=mongodb+srv://<database-user>:<database-password>@<cluster-host>/studyprohelp?retryWrites=true&w=majority
 SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_SECURE=true
+SMTP_PORT=587
+SMTP_SECURE=false
 SMTP_USER=<sending-gmail-address>
 SMTP_APP_PASSWORD=<google-app-password>
 OWNER_NOTIFICATION_EMAIL=<owner-gmail-address>
