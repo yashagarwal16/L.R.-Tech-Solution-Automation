@@ -1,0 +1,4 @@
+import { NextRequest, NextResponse } from "next/server";
+import dbConnect from "./lib_mongodb";
+import Order from "./models/Order";
+export async function POST(request: NextRequest) { try { const body = await request.json(); if (!body.name || !body.email) return NextResponse.json({ message: "Name and email are required." }, { status: 400 }); await dbConnect(); const order = await Order.create({ name: String(body.name).slice(0, 120), email: String(body.email).slice(0, 240), phone: String(body.phone ?? "").slice(0, 40), service: String(body.service ?? "").slice(0, 120), deadline: String(body.deadline ?? "").slice(0, 120), details: String(body.details ?? "").slice(0, 5000) }); return NextResponse.json({ ok: true, id: order._id.toString() }, { status: 201 }); } catch { return NextResponse.json({ message: "The request could not be saved right now." }, { status: 503 }); } }

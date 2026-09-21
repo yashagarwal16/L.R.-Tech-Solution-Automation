@@ -1,0 +1,10 @@
+import { ArrowRight, Cloud, Code2, ShieldCheck, Workflow } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PublicPage } from "../../components/PublicPage";
+
+const services = [["Cloud & infrastructure", "Cloud foundations, reliability, and practical systems that keep the business moving.", Cloud], ["Cybersecurity & resilience", "Risk visibility, secure operations, and sensible protection for the people and systems you depend on.", ShieldCheck], ["Software & automation", "Custom software and connected workflows that remove friction from repeatable work.", Code2], ["Technology consulting", "Clear decisions, roadmaps, and delivery support when the next move needs to be right.", Workflow]] as const;
+
+export const metadata: Metadata = { title: "IT Services, Cloud, Cybersecurity & Software", description: "Explore cloud infrastructure, cybersecurity, custom software, automation, and technology consulting from L. R. Tech Solutions." };
+
+export default function ServicesPage() { return <PublicPage eyebrow="Capabilities / 01" title={<>Technology that earns<br /><em>its place.</em></>}><section className="page-content"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "L. R. Tech Solutions services", itemListElement: services.map(([title, text], index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "Service", name: title, description: text, provider: { "@type": "Organization", name: "L. R. Tech Solutions" }, areaServed: "India" } })) }) }} /><p>We work with growing businesses that need technology to become an advantage, not another source of uncertainty.</p><div className="page-grid" style={{ marginTop: 48 }}>{services.map(([title, text, Icon], index) => <article className="page-card" key={title}><Icon size={22} className="page-card-icon" /><strong>0{index + 1}</strong><h2>{title}</h2><p>{text}</p><Link href="/contact">Discuss this capability <ArrowRight size={14} /></Link></article>)}</div></section></PublicPage>; }
