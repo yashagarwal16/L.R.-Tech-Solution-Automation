@@ -1,5 +1,16 @@
 # L. R. Tech Solutions — Company Operations Console
 
+## Who this README is for
+
+This document is the handover guide for:
+
+- **The company owner:** configure production accounts, MongoDB, Gmail notifications, and Render.
+- **The deployment operator:** connect the repository, set hosting environment variables, deploy, and run the smoke tests.
+- **The developer:** understand the application structure, routes, security model, integrations, and remaining production work.
+- **The future maintainer:** identify which features are live, which are MVP/demo-backed, and which integrations are intentionally deferred.
+
+It is not a document for storing passwords, API keys, database URLs, or other secrets. Put production values only in Render's Environment page and keep local values in `.env.local`.
+
 ## 1. What this project is
 
 This project is a modern public company website plus a protected company operations workspace for L. R. Tech Solutions.
@@ -207,10 +218,13 @@ Visitor submits form
   -> Connect to MongoDB
   -> Save ContactInquiry
   -> Record lead-intake-routing automation run
-  -> Return success to the visitor
+  -> Send branded Gmail notification to configured recipients
+  -> Return success and email delivery status to the visitor
 ```
 
-The current recipient is the **L. R. Tech Solutions intake workspace**. The form does not send an email or WhatsApp message yet. To add that, implement an approved email/WhatsApp provider and keep external sending behind a human-approval policy.
+The enquiry is saved in the **L. R. Tech Solutions intake workspace** and a branded email is sent through Gmail SMTP to the configured owner, manager, and additional recipients. The sender name is **L. R. TECH Website**, and the visitor's address is used as the reply-to address. If email delivery fails, the enquiry remains saved and the API returns `emailSent: false`.
+
+WhatsApp is not active yet. The Twilio variables are placeholders for a future integration and do not send messages by themselves.
 
 ### Contact data stored
 
