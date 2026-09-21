@@ -1,6 +1,6 @@
 # L. R. Tech Solutions — Company Operations Console
 
-## Who this README is for
+## Who this README is for :
 
 This document is the handover guide for:
 
